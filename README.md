@@ -1,4 +1,42 @@
 # Documentação do onpostt
+# 📌 Protocolo Descentralizado (Nome Confidencial)
+
+Nosso protocolo é uma solução inovadora semelhante à rede Bitcoin, porém utilizando uma abordagem baseada em **Transmissão por Relays** e **Basic Blockchain** para redes sociais e outras aplicações. Os dados são armazenados em **blocos descentralizados**, assinados e criptografados com a chave privada do usuário.
+
+---
+
+## 🔹 Características Principais
+✅ **Execução em Node.js**  
+✅ **Uso de estrutura JSON em vez de banco de dados tradicional**  
+✅ **Cada bloco é armazenado em um arquivo `.json` individual**, contendo um ID e uma chave pública (**pubkey**)  
+✅ **Consultas organizadas** com querys, filtros e parâmetros personalizados  
+✅ **Altamente escalável**  
+✅ **Baseado em WebSocket e comunicação P2P**  
+
+---
+
+## 🔒 Segurança e Privacidade
+
+🔹 **Criptografia baseada em chaves privadas**, garantindo total controle do usuário sobre seus dados  
+🔹 **Descentralização** → resistência à censura e **eliminação de pontos únicos de falha**  
+🔹 **Assinaturas digitais** garantem que cada bloco é autêntico e inviolável  
+
+---
+
+## 📈 Escalabilidade e Flexibilidade
+
+💡 **Estrutura modular baseada em JSON** permite fácil integração com outras tecnologias  
+💡 **Crescimento escalável sem comprometer a eficiência**  
+💡 **Compatível com múltiplos relays WebSocket simultaneamente**  
+
+---
+
+## 🔗 Importação da Biblioteca `onpostt.min.js`
+
+Para utilizar o protocolo, inclua a seguinte biblioteca no seu projeto:
+
+```html
+<script src="onpostt.min.js"></script>
 
 ## Introdução
 
