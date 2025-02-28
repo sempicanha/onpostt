@@ -35,7 +35,6 @@ Nosso protocolo é uma solução inovadora semelhante à rede Bitcoin, porém ut
 
 Para utilizar o protocolo, inclua a seguinte biblioteca no seu projeto:
 
-```html
 <script src="onpostt.min.js"></script>
 
 ## Introdução
