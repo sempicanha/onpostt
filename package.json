@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "elliptic": "^6.6.1",
+    "express": "^4.21.2",
+    "sqlite3": "^5.1.7",
+    "tweetnacl": "^1.0.3",
+    "winston": "^3.17.0",
+    "ws": "^8.18.0"
+  }
+}
