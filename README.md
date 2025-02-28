@@ -1,47 +1,133 @@
-# Decentralized Event Relay Protocol
+# Documentação do onpostt
 
-This project implements a decentralized event relay protocol inspired by [Nostr](https://github.com/nostr-protocol/nostr). It allows clients to publish, retrieve, hide, and delete events in a decentralized manner using WebSockets and SQLite for persistence.
+## Introdução
 
-## Table of Contents
+`onpostt` é um objeto JavaScript que fornece funcionalidades para gerar chaves criptográficas, assinar blocos de dados e interagir com relays via WebSocket. Ele pode ser usado para criar posts, reações, seguir usuários, enviar mensagens e gerenciar perfis de forma segura.
 
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Setup](#setup)
-4. [Usage](#usage)
-5. [API Documentation](#api-documentation)
-6. [Database Schema](#database-schema)
-7. [Security Considerations](#security-considerations)
-8. [Contributing](#contributing)
+## Funcionalidades Principais
 
----
+- **Gerar chaves criptográficas** (privada e pública)
+- **Assinar blocos de dados** para garantir autenticidade
+- **Verificar assinaturas** de mensagens
+- **Enviar blocos** para relays conectados
+- **Subscrever a eventos** de relays
 
-## Overview
+## Estrutura do Objeto `onpostt`
 
-The relay server acts as a hub for decentralized communication. Clients can connect via WebSocket to publish events, retrieve events based on filters, hide events, or delete events. Events are stored in an SQLite database for persistence.
+### 1. Propriedades
 
----
+- `callbacks`: Array para armazenar callbacks
+- `data`: Array para armazenar dados
+- `sockets`: Array para gerenciar conexões WebSocket
+- `isConnected`: Booleano que indica conexão ativa
+- `callbacksQueue`: Fila de callbacks pendentes
+- `ec`: Instância da curva elíptica secp256k1 para criptografia
 
-## Features
+### 2. Métodos
 
-- **Event Publishing**: Clients can publish events with fields like `id`, `pubkey`, `created_at`, `kind`, `tags`, `content`, `sig`, and `app`.
-- **Event Retrieval**: Clients can query events using filters such as `pubkey`, `kinds`, `since`, `until`, `tags`, and `app`.
-- **Event Moderation**: Admins can hide or delete events using valid signatures.
-- **Persistence**: Events are stored in an SQLite database with indexing for efficient querying.
-- **Rate Limiting**: Limits the number of events returned per request to prevent abuse.
+#### 2.1 Geração de Chaves
 
----
+- `generateKeys()`: Retorna um par de chaves (privada e pública)
+- `generateKeysCustom(input)`: Gera chaves a partir de uma string personalizada
+- `generatePublicKey(privateKey)`: Obtém a chave pública de uma chave privada
 
-## Setup
+#### 2.2 Assinatura e Verificação de Blocos
 
-### Prerequisites
+- `signBlock(block, privateKey)`: Assina um bloco e retorna a versão assinada
+- `verifySignature(publicKeyHex, message, signature)`: Verifica se a assinatura de um bloco é válida
 
-- Node.js (v16 or higher)
-- npm or yarn
-- SQLite3
+#### 2.3 Função Hash (SHA-256)
 
-### Installation
+- `sha256(message)`: Retorna o hash SHA-256 de uma mensagem
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/sempicanha/onpostt.git
-   cd decentralized-event-relay
+#### 2.4 Conexão com Relays
+
+- `connect(hosts)`: Estabelece conexão com uma lista de relays via WebSocket
+- `createConnection(host, onConnectedCallback)`: Conecta-se a um relay específico
+
+#### 2.5 Envio e Recebimento de Blocos
+
+- `sendBlock(block, callbacks)`: Envia um bloco assinado para os relays conectados
+- `isValidJsonObject(obj)`: Verifica se um objeto JSON é válido
+- `sub(filters, callbacks)`: Subscreve-se a eventos conforme os filtros fornecidos
+
+### 3. Criação de Blocos Específicos
+
+- `createPost(content, privateKey, app)`: Cria um bloco de post
+- `createReaction(emoji, ref, privateKey, app)`: Cria um bloco de reação
+- `createFollow(followedPubkey, privateKey, app)`: Cria um bloco de follow
+- `createMessage(message, recipientPubkey, privateKey, app)`: Cria um bloco de mensagem privada
+- `createProfile(profileData, privateKey, app)`: Cria um bloco de perfil
+- `createFollowing(privateKey, app)`: Cria um bloco de seguidores
+
+## Exemplo de Uso
+
+### 1. Conectar-se a um Relay
+
+```javascript
+var connect = onpostt.connect(['ws://localhost:3000']);
+```
+
+### 2. Criar e Enviar um Post
+
+```javascript
+async function post() {
+    var privateKey = '21e28dfffa49daf6373527c579ee16dea1afd7c8a2f95d9eb2e6aeb0a8d6d3d2';
+    var pubkey = onpostt.generatePublicKey(privateKey);  
+
+    var block = {
+        pubkey: pubkey,
+        created_at: Math.floor(Date.now() / 1000),
+        mode: "post",
+        query: [
+            ["username", "lanpião.dev"],
+            ["site", "google.com"]
+        ],
+        content: 'Rei do Cangaço',
+        app: 'mariabonita.com.br'
+    };
+
+    var BlockSigned = await onpostt.signBlock(block, privateKey);
+    console.log('Block Assinado:', BlockSigned);
+    onpostt.sendBlock(BlockSigned, function(response) {
+        console.log('Resposta do relay:', response);
+    });
+}
+```
+
+### 3. Subscrever a Eventos
+
+```javascript
+onpostt.sub({
+    mode: 'post',
+    query: [["username", "lanpião.dev"]],
+    app: "mariabonita.com.br",
+    limit: 10,
+    offset: 0
+}, function(handleEvent) {
+    console.log('Eventos de lanpião.dev:', handleEvent);
+});
+```
+
+# 🔹 Exemplos de Saída do Sistema
+
+## 📌 Exemplo de Saída de um Bloco Assinado (`signBlock`)
+```json
+{
+  "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+  "created_at": 1700000000,
+  "mode": "post",
+  "query": [
+    ["username", "lanpião.dev"],
+    ["site", "google.com"]
+  ],
+  "content": "Rei do Cangaço",
+  "app": "mariabonita.com.br",
+  "id": "91707575e4b2b325a67b03a57a8bf1218c7b7ac7399ac5705af5c21dca8de18a",
+  "sig": "3045022100f0c64e3f9c07b9b1e832ecc06dfd041e0..."
+}
+
+
+## Conclusão
+
+O `onpostt` é uma biblioteca poderosa para interações seguras via WebSocket, permitindo criação de eventos autenticados e comunicação com relays de maneira confiável e descentralizada.
