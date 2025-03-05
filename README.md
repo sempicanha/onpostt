@@ -1,5 +1,5 @@
 # Documentação do onpostt
-# 📌 Protocolo Descentralizado (Nome Confidencial)
+# 📌 Protocolo Descentralizado por Relays Blocos sobre Blocos
 
 Nosso protocolo é uma solução inovadora semelhante à rede Bitcoin, porém utilizando uma abordagem baseada em **Transmissão por Relays** e **Basic Blockchain** para redes sociais e outras aplicações. Os dados são armazenados em **blocos descentralizados**, assinados e criptografados com a chave privada do usuário.
 
