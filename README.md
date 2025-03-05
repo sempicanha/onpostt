@@ -47,18 +47,8 @@ Para utilizar o protocolo, inclua a seguinte biblioteca no seu projeto:
 - **Assinar blocos de dados** para garantir autenticidade
 - **Verificar assinaturas** de mensagens
 - **Enviar blocos** para relays conectados
-- **Subscrever a eventos** de relays
+- **Subscrever a Blocos** de relays
 
-## Estrutura do Objeto `onpostt`
-
-### 1. Propriedades
-
-- `callbacks`: Array para armazenar callbacks
-- `data`: Array para armazenar dados
-- `sockets`: Array para gerenciar conexões WebSocket
-- `isConnected`: Booleano que indica conexão ativa
-- `callbacksQueue`: Fila de callbacks pendentes
-- `ec`: Instância da curva elíptica secp256k1 para criptografia
 
 ### 2. Métodos
 
@@ -71,21 +61,14 @@ Para utilizar o protocolo, inclua a seguinte biblioteca no seu projeto:
 #### 2.2 Assinatura e Verificação de Blocos
 
 - `signBlock(block, privateKey)`: Assina um bloco e retorna a versão assinada
-- `verifySignature(publicKeyHex, message, signature)`: Verifica se a assinatura de um bloco é válida
-
-#### 2.3 Função Hash (SHA-256)
-
-- `sha256(message)`: Retorna o hash SHA-256 de uma mensagem
-
+- `verifySignature(publicKeyHex, message, signature)`: Verifica se a assinatura de um bloco é válida.
 #### 2.4 Conexão com Relays
 
 - `connect(hosts)`: Estabelece conexão com uma lista de relays via WebSocket
-- `createConnection(host, onConnectedCallback)`: Conecta-se a um relay específico
 
 #### 2.5 Envio e Recebimento de Blocos
 
 - `sendBlock(block, callbacks)`: Envia um bloco assinado para os relays conectados
-- `isValidJsonObject(obj)`: Verifica se um objeto JSON é válido
 - `sub(filters, callbacks)`: Subscreve-se a eventos conforme os filtros fornecidos
 
 ### 3. Criação de Blocos Específicos
@@ -163,8 +146,13 @@ onpostt.sub({
   "id": "91707575e4b2b325a67b03a57a8bf1218c7b7ac7399ac5705af5c21dca8de18a",
   "sig": "3045022100f0c64e3f9c07b9b1e832ecc06dfd041e0..."
 }
-
+```
 
 ## Conclusão
-
 O `onpostt` é uma biblioteca poderosa para interações seguras via WebSocket, permitindo criação de eventos autenticados e comunicação com relays de maneira confiável e descentralizada.
+
+
+ajude o projeto pagando um café: 
+bitcoin: bc1q8xfkw00elwcermnhqme7940x054g48l7p2kunp
+ethereum: 0x81CA7554bDBCe86B3786eF44fdbf9992f09Ef68b
+BCH: qqq5evh7xlg8mxxa8ez6u3zqz0vmytpv6q7vd8tq07
