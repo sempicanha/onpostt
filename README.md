@@ -148,6 +148,116 @@ onpostt.sub({
 }
 ```
 
+## Publicar ou atualizar um Perfil na rede
+Sempre que um bloco com block.mode = 'profile' é publicado, ele não apaga nem edita o bloco anterior, mas sim o substitui na rede. O bloco mais recente toma o lugar do anterior, sendo o único reconhecido como válido, enquanto os blocos anteriores são ignorados.
+
+```javascript
+    async function postProfile() {
+        var privateKey = '21e28dfffa49daf6373527c579ee16dea1afd7c8a2f95d9eb2e6aeb0a8d6d3d2';
+        var pubkey = onpostt.generatePublicKey(privateKey);  
+    
+        var block = {
+            pubkey: pubkey,  // Chave pública do usuário
+            created_at: Math.floor(Date.now() / 1000), // Timestamp atual
+            mode: "profile", // Tipo de evento (1 = Post)
+            content: {
+                name: 'Jackson Santos devs s',
+                picture: 'https://i.etsystatic.com/39063034/r/il/89f3fe/5287734117/il_570xN.5287734117_5dus.jpg',
+                about: 'Sou Dev JS'
+            }, // Conteúdo da postagem
+            query:[],
+            app: 'mariabonita.com.br' // Nome do aplicativo que está publicando
+        };
+    
+        var BlockSigned = await onpostt.signBlock(block, privateKey);
+        console.log('Block Assinado:', BlockSigned);
+        // BlockSigned.content = 'oalr'
+        onpostt.sendBlock(BlockSigned, function(response) {
+            console.log('Resposta do relay:', response);
+        });
+    }
+    postProfile()
+```
+
+## Buscar um Perfil na rede
+
+```javascript
+   onpostt.sub({ 
+        pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+        mode: 'profile', // Filtra por tipo de evento
+        app: "mariabonita.com.br", // Filtra pelo nome do app
+    }, function(handleEvent) {
+        console.log('Profile', handleEvent);
+    });
+
+    
+```
+
+## Buscar um Perfil na rede usando querys para consutlas avançadas.
+
+```javascript
+   onpostt.sub({
+        pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+        mode: 'profile', // Filtra por tipo de evento
+        query: [
+            ["username", "lanpião.dev"],
+            ["site", "google.com"]
+        ], // Filtra por múltiplas chaves no campo 'query'
+        app: "mariabonita.com.br" // Filtra pelo nome do app
+    }, function(handleEvent) {
+        console.log('Profile querys', handleEvent);
+    });
+```
+
+## Enviar uma Mensagems para um usuario atraves de sua pubkey.
+
+```javascript
+    async function postMessage() {
+        const privateKey = '21e28dfffa49daf6373527c579ee16dea1afd7c8a2f95d9eb2e6aeb0a8d6d3d2';
+        const pubkey = onpostt.generatePublicKey(privateKey);  
+    
+        const recipient = '03a55933377c181548b8d22e6f5d4543a0a8f75cb55ae6e29d3653f9f38f627f93';
+    
+        const block = {
+            pubkey: pubkey,  // Chave pública do usuário
+            created_at: Math.floor(Date.now() / 1000), // Timestamp atual
+            mode: "message", // Tipo de evento (1 = Post)
+            query: [
+                ["sender", pubkey], //pubkey do remetente
+                ["recipient", recipient] //pubkey do distinatario
+            ],
+            content: 'Ja Baixou o código que te passei?', // Conteúdo da postagem
+            app: 'mariabonita.com.br' // Nome do aplicativo que está publicando
+        };
+    
+        const BlockSigned = await onpostt.signBlock(block, privateKey);
+        console.log('Block Assinado:', BlockSigned);
+        // BlockSigned.content = 'oalr'
+        onpostt.sendBlock(BlockSigned, function(response) {
+            console.log('Resposta do relay:', response);
+        });
+    }
+
+```
+
+## Consultar as Mensagems um usuario atraves de sua PrivateKey.
+Apenas o usuário que possui a sua chave privada tem acesso às suas mensagens. Cada mensagem é assinada digitalmente e pode ser verificada utilizando a chave pública do autor, garantindo autenticidade e segurança. Esse processo ocorre tanto no cliente quanto no servidor.
+
+```javascript
+   onpostt.sub({
+        privatekey: '21e28dfffa49daf6373527c579ee16dea1afd7c8a2f95d9eb2e6aeb0a8d6d3d2',
+        mode: 'message', // Filtra por tipo de evento
+        query: [
+            ["sender", '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523'], //pubkey do remetente
+            ["recipient", '03a55933377c181548b8d22e6f5d4543a0a8f75cb55ae6e29d3653f9f38f627f93'] //pubkey do distinatario
+        ],
+        app: "mariabonita.com.br"// Filtra pelo nome do app
+    }, function(handleEvent) {
+        console.log('ChatMessage_03dca175856ff', handleEvent);
+    });
+
+```
+
 ## Conclusão
 O `onpostt` é uma biblioteca poderosa para interações seguras via WebSocket, permitindo criação de eventos autenticados e comunicação com relays de maneira confiável e descentralizada.
 
