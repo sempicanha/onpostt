@@ -88,7 +88,7 @@ Para utilizar o protocolo, inclua a seguinte biblioteca no seu projeto:
 var connect = onpostt.connect(['ws://localhost:3000']);
 ```
 
-### 2. Criar e Enviar um Post
+### 2. Criar e Publicar um Bloco na rede.
 
 ```javascript
 async function post() {
@@ -115,7 +115,7 @@ async function post() {
 }
 ```
 
-### 3. Subscrever a Eventos
+### 3. Subscrever a Blocos
 
 ```javascript
 onpostt.sub({
@@ -148,7 +148,7 @@ onpostt.sub({
 }
 ```
 
-## Publicar ou atualizar um Perfil na rede
+## Publicar ou atualizar um Bloco do tipo Perfil na rede
 Sempre que um bloco com block.mode = 'profile' é publicado, ele não apaga nem edita o bloco anterior, mas sim o substitui na rede. O bloco mais recente toma o lugar do anterior, sendo o único reconhecido como válido, enquanto os blocos anteriores são ignorados.
 
 ```javascript
@@ -193,7 +193,7 @@ Sempre que um bloco com block.mode = 'profile' é publicado, ele não apaga nem 
     
 ```
 
-## Buscar um Perfil na rede usando querys para consutlas avançadas.
+## Buscar um Perfil na rede usando querys para consultas avançadas.
 
 ```javascript
    onpostt.sub({
@@ -209,7 +209,7 @@ Sempre que um bloco com block.mode = 'profile' é publicado, ele não apaga nem 
     });
 ```
 
-## Enviar uma Mensagems para um usuario atraves de sua pubkey.
+## Enviar uma mensagem para um usuário utilizando sua chave pública (pubkey).
 
 ```javascript
     async function postMessage() {
@@ -240,7 +240,7 @@ Sempre que um bloco com block.mode = 'profile' é publicado, ele não apaga nem 
 
 ```
 
-## Consultar as Mensagems um usuario atraves de sua PrivateKey.
+## Consultar as mensagens um usuario atraves de sua PrivateKey.
 Apenas o usuário que possui a sua chave privada tem acesso às suas mensagens. Cada mensagem é assinada digitalmente e pode ser verificada utilizando a chave pública do autor, garantindo autenticidade e segurança. Esse processo ocorre tanto no cliente quanto no servidor.
 
 ```javascript
