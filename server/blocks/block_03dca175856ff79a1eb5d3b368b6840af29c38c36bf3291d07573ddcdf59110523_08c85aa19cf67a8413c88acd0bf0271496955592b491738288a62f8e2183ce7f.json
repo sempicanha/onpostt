@@ -1,0 +1,14 @@
+{
+  "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+  "created_at": 1740971197,
+  "mode": "profile",
+  "content": {
+    "name": "Jackson Santos",
+    "picture": "https://i.etsystatic.com/39063034/r/il/89f3fe/5287734117/il_570xN.5287734117_5dus.jpg",
+    "about": "Sou Dev JS"
+  },
+  "query": [],
+  "app": "mariabonita.com.br",
+  "id": "08c85aa19cf67a8413c88acd0bf0271496955592b491738288a62f8e2183ce7f",
+  "sig": "30450220399ac1ebd5282418bf68a16223ff5348a6e7dc39b28af15ce28716c568901f35022100dc835d1c538111f92ca62301f7a812e3487cd2ac68ac74488edd7bbc14c981d3"
+}

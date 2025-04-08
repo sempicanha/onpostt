@@ -1,0 +1,20 @@
+{
+  "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+  "created_at": 1740970161,
+  "mode": "post",
+  "query": [
+    [
+      "username",
+      "lanpião.dev"
+    ],
+    [
+      "site",
+      "google.com"
+    ]
+  ],
+  "content": "Rei do Cangaço Porra",
+  "app": "mariabonita.com.br",
+  "id": "b5cc5f77e8b8a26d33e93e62356a2d982ffd3f1f728eb15313bf638b89179230",
+  "sig": "3045022055c49ed7b8cbcb7f596ed2136ce4f907c723c2b4ff9f9ca63c7dbeeb1e6f94320221008aed022491be6b3df73cab924d3678e69cc7cc5522d5b6017113106a5ba3506d",
+  "deleted": true
+}

@@ -1,0 +1,15 @@
+{
+  "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+  "created_at": 1740970439,
+  "mode": "profile",
+  "content": {
+    "name": "Jackson",
+    "picture": "https://i.etsystatic.com/39063034/r/il/89f3fe/5287734117/il_570xN.5287734117_5dus.jpg",
+    "about": "Sou Dev JS"
+  },
+  "query": [],
+  "app": "mariabonita.com.br",
+  "id": "4aa1ea1a8294b4d505fe30cb20d601e48d08e18e38031ff06c81e30f738f6c73",
+  "sig": "3045022100c0c6c9e6d092e4471f3b361e2c59c899a538dc13bf4079bd35e06a7041131d37022025dc69f44fbbd164b8c508881d229172ad77b236295c3421281ebf2f617869cc",
+  "deleted": true
+}

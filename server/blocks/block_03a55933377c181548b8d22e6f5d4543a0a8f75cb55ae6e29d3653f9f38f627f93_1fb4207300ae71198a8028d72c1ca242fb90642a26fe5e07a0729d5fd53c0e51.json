@@ -1,0 +1,19 @@
+{
+  "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+  "created_at": 1740975074,
+  "mode": "message",
+  "query": [
+    [
+      "sender",
+      "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523"
+    ],
+    [
+      "recipient",
+      "03a55933377c181548b8d22e6f5d4543a0a8f75cb55ae6e29d3653f9f38f627f93"
+    ]
+  ],
+  "content": "Ja Baixou o código que te passei?",
+  "app": "mariabonita.com.br",
+  "id": "1fb4207300ae71198a8028d72c1ca242fb90642a26fe5e07a0729d5fd53c0e51",
+  "sig": "3043021f63c0c06be5c0c67ff8b2f358eda8e0fd2b7991d8f88115fa9d73c9abb8ea7602205111c08f92858f0a6a3b10f95bb4aa11662de1fb30b5f018c02686ff9e1d9c6d"
+}
