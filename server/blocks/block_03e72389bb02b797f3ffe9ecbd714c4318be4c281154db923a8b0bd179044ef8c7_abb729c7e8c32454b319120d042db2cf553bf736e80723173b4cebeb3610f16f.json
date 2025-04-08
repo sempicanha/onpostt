@@ -1,0 +1,14 @@
+{
+  "pubkey": "03e72389bb02b797f3ffe9ecbd714c4318be4c281154db923a8b0bd179044ef8c7",
+  "created_at": 1744084678,
+  "mode": "profile",
+  "content": {
+    "name": "LulaLadrao",
+    "picture": "https://i.etsystatic.com/39063034/r/il/89f3fe/5287734117/il_570xN.5287734117_5dus.jpg",
+    "about": "Sou Dev JS"
+  },
+  "query": [],
+  "app": "mariabonita.com.br",
+  "id": "abb729c7e8c32454b319120d042db2cf553bf736e80723173b4cebeb3610f16f",
+  "sig": "3045022000ba4e8036f253d18b28c395f52051e90d746cd21f776ba19feca07d1b970888022100d70341f76e50efb3523add88466ef7659ebc00ffa0560b99dd58ede8639adccb"
+}

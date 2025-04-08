@@ -178,7 +178,7 @@
     </div>
 <script>
 
-var connect = onpostt.connect(['ws://localhost:3000']);
+var connect = onpostt.connect(['ws://localhost:3000', 'wss://onpostt.onrender.com:3000']);
 
 
 async function post() {
@@ -223,7 +223,7 @@ onpostt.sub({
 
 onpostt.sub({
     mode: 'post', // Filtra por tipo de evento
-    query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
     app: "mariabonita.com.br", // Filtra pelo nome do app
     limit: 10, // Limita o número de eventos
     offset: 0 // Pula os primeiros 5 eventos
@@ -246,7 +246,7 @@ onpostt.sub({
     pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
     mode: 'post', // Filtra por tipo de evento
     query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
-    app: "jsaplication.com.br", // Filtra pelo nome do app
+    app: "mariabonita.com.br", // Filtra pelo nome do app
     limit: 10, // Limita o número de eventos
     offset: 0 // Pula os primeiros 5 eventos
 }, function(handleEvent) {
@@ -271,7 +271,7 @@ onpostt.sub({
     pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
     // id: "4124e36b3a60e50711419be4c5f2febc565f78b2215ce6ac7a510d40572dd905",
     mode: 'post', // Filtra por tipo de evento
-    query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
     app: "mariabonita.com.br", // Filtra pelo nome do app
     limit: 20, // Limita o número de eventos
     offset: 5 // Pula os primeiros 5 eventos

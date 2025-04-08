@@ -1,0 +1,19 @@
+{
+  "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+  "created_at": 1744084582,
+  "mode": "post",
+  "query": [
+    [
+      "username",
+      "lanpião.dev2"
+    ],
+    [
+      "site",
+      "mariabonita.com.br"
+    ]
+  ],
+  "content": "Rei do Cangaço",
+  "app": "mariabonita.com.br",
+  "id": "9c62ca06ec3e914d6d00a2fc7932f58cc6c240c6cf0e2b04a748c84ab4649207",
+  "sig": "3044022079628293b4e544f01891deb28c2f4e6402d21e07f767a0efc230a2d4bc29681602202feb1cdb9a0f5fdf205bf3d7e78a21d57cda52ab8700039eaf915d840759dd80"
+}
