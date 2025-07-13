@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Descentralizado OnpostT</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 100%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .highlight {
+            background: #ddd;
+            padding: 5px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+ <script src="onpostt.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Protocolo Descentralizado (Nome Confidencial)</h1>
+        <p>Nosso protocolo é uma solução inovadora semelhante a <strong> rede Bitcoin</strong>, porém utilizando uma abordagem baseada em <strong>Transmissão por Relays e Basic BlockChain</strong> para rede sociais e outras aplicações. Os dados são armazenados em blocos descentralizados, assinados e criptografados com a chave privada do usuário.</p>
+        
+        <h2>Características Principais</h2>
+        <ul>
+            <li>Execução em <strong>Node.js</strong></li>
+            <li>Uso de estrutura <strong>JSON</strong> em vez de banco de dados tradicional</li>
+            <li>Cada bloco é armazenado em um arquivo <span class="highlight">.json</span> individual, contendo um ID e uma chave pública (<span class="highlight">pubkey</span>)</li>
+            <li>Consultas organizadas com <strong>querys, filtros e parâmetros personalizados</strong></li>
+            <li>Altamente <strong>escalável</strong></li>
+            <li>Baseado em <strong>WebSocket</strong> e comunicação <strong>P2P</strong></li>
+        </ul>
+        
+        <h2>Segurança e Privacidade</h2>
+        <p>Com a criptografia baseada em chaves privadas, os usuários têm total controle sobre seus dados. A descentralização garante resistência à censura e elimina pontos únicos de falha.</p>
+        
+        <h2>Escalabilidade e Flexibilidade</h2>
+        <p>A estrutura modular baseada em <strong>JSON</strong> permite fácil integração com outras tecnologias e um crescimento escalável sem comprometer a eficiência.</p>
+        
+
+        <h2>Import Lib onpost.min.js</h2>
+<pre>
+    &lt;script src="onpostt.min.js"&gt;&lt;/script&gt;
+</pre>
+
+
+        <h2>Exemplo de Código</h2>
+        <pre>
+        onpostt.connect(['ws://localhost:3000', 'ws://localhost:4000']);
+
+        async function post() {
+            var privateKey = '21e28dfffa49daf6373527c579ee16dea1afd7c8a2f95d9eb2e6aeb0a8d6d3d2';
+            var pubkey = onpostt.generatePublicKey(privateKey);  
+
+            var block = {
+                pubkey: pubkey,  // Chave pública do usuário
+                created_at: Math.floor(Date.now() / 1000), // Timestamp atual
+                mode: "post", // Tipo de evento (1 = Post)
+                query: [
+                    ["username", "lanpião.dev"],
+                    ["site", "google.com"]
+                ],
+                content: 'Rei do Cangaço', // Conteúdo da postagem
+                app: 'mariabonita.com.br' // Nome do aplicativo que está publicando
+            };
+
+            var BlockSigned = await onpostt.signBlock(block, privateKey);
+            console.log('Block Assinado:', BlockSigned);
+            // BlockSigned.content = 'oalr'
+            onpostt.sendBlock(BlockSigned, function(response) {
+                console.log('Resposta do relay:', response);
+            });
+        }
+
+        </pre>
+
+        <h2>Send Block</h2>
+        <pre>
+        onpostt.sub({
+            mode: 'post', // Filtra por tipo de evento
+            query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+            app: "mariabonita.com.br", // Filtra pelo nome do app
+            limit: 10, // Limita o número de eventos
+            offset: 0 // Pula os primeiros 5 eventos
+        }, function(handleEvent) {
+            console.log('Eventos lanpião.dev, mariabonita.com.br, app:mariabonita.com.br', handleEvent);
+        });
+
+
+        onpostt.sub({
+            mode: 'post', // Filtra por tipo de evento
+            query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+            app: "mariabonita.com.br", // Filtra pelo nome do app
+            limit: 10, // Limita o número de eventos
+            offset: 0 // Pula os primeiros 5 eventos
+        }, function(handleEvent) {
+            console.log('Eventos jackson.dev2:', handleEvent);
+        });
+
+        onpostt.sub({
+            pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+            mode: 'post', // Filtra por tipo de evento
+            query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+            app: "jsaplication.com.br", // Filtra pelo nome do app
+            limit: 10, // Limita o número de eventos
+            offset: 0 // Pula os primeiros 5 eventos
+        }, function(handleEvent) {
+            console.log('Eventos personalizados author:', handleEvent);
+        });
+
+
+        onpostt.sub({
+            pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+            mode: 'post', // Filtra por tipo de evento
+            id:"91707575e4b2b325a67b03a57a8bf1218c7b7ac7399ac5705af5c21dca8de18a",
+            query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+            app: "mariabonita.com.br", // Filtra pelo nome do app
+            limit: 10, // Limita o número de eventos
+            offset: 0 // Pula os primeiros 5 eventos
+        }, function(handleEvent) {
+            console.log('Eventos getFile', handleEvent);
+        });
+
+
+        onpostt.sub({
+            pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+            // id: "4124e36b3a60e50711419be4c5f2febc565f78b2215ce6ac7a510d40572dd905",
+            mode: 'post', // Filtra por tipo de evento
+            query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+            app: "mariabonita.com.br", // Filtra pelo nome do app
+            limit: 20, // Limita o número de eventos
+            offset: 5 // Pula os primeiros 5 eventos
+        }, function(handleEvent) {
+            console.log('Eventos lite 10, offset 5', handleEvent);
+        });
+        </pre>
+
+
+        <h2>Exemplo de Saída</h2>
+        <pre>
+        [
+            {
+                "pubkey": "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523",
+                "created_at": 1740544911,
+                "mode": "post",
+                "query": "[[\"username\",\"jackson.dev\"],[\"site\",\"jsaplication.com.br\"]]",
+                "content": "Mundo Novo",
+                "app": "jsaplication.com.br",
+                "id": "91707575e4b2b325a67b03a57a8bf1218c7b7ac7399ac5705af5c21dca8de18a",
+                "sig": "3045022069e88ba2ca027545a209037bdcd2260f79a97e6618147a63f463b227e68ad14e022100a3e45c7f7d2b5509e2a6a741a7f0aef928c056e1111ae4e48b45ca2be4e28b45"
+            }
+        ]
+        </pre>
+    </div>
+<script>
+
+
+// const servers = [
+//   {
+//     name: "node-1",
+//     host: "http://localhost:3000",
+//     socket: "ws://localhost:5000",
+//     priority: 1
+//   },
+//   {
+//     name: "node-2",
+//     // host: "http://localhost:2000",
+//     socket: "ws://localhost:6000",
+//     priority: 2
+//   }
+// ];
+
+
+const servers = {
+  host: ["http://localhost:3000"],
+  socket: ["ws://localhost:3000"]
+};
+
+
+
+var connect = onpostt.connect(servers);
+
+
+// var connect = onpostt.connect(['http://localhost:3000', 'http://localhost:5000'], {http: true, socket: true});
+
+
+async function post() {
+    var privateKey = '21e28dfffa49daf6373527c579ee16dea1afd7c8a2f95d9eb2e6aeb0a8d6d3d2';
+    var pubkey = onpostt.generatePublicKey(privateKey);  
+
+    var block = {
+        pubkey: pubkey,  // Chave pública do usuário
+        created_at: Math.floor(Date.now() / 1000), // Timestamp atual
+        mode: "post", // Tipo de evento (1 = Post)
+        query: [
+            ["username", "lanpião.dev"],
+            ["site", "google.com"]
+        ],
+        content: 'Rei do Cangaço', // Conteúdo da postagem
+        app: 'mariabonita.com.br' // Nome do aplicativo que está publicando
+    };
+
+    var BlockSigned = await onpostt.signBlock(block, privateKey);
+    console.log('Block Assinado:', BlockSigned);
+    // BlockSigned.content = 'oalr'
+    onpostt.sendBlock(BlockSigned, function(response) {
+        console.log('Resposta do relay:', response);
+    });
+}
+
+
+
+//funciona
+// onpostt.sub(function (handleEvent) {
+//     console.log('Todos os eventos:', handleEvent);
+// });
+
+onpostt.list({
+    mode: 'post', // Filtra por tipo de evento
+    // query: [["username", "lanpião.dev"]], // Filtra por múltiplas chaves no campo 'query
+    // offset: 5,
+    // limit: 10
+}, function(handleEvent) {
+    console.log('Todos Posts:', handleEvent);
+});
+
+onpostt.list({
+    mode: 'post', // Filtra por tipo de evento
+    query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    limit: 10, // Limita o número de eventos
+    offset: 0 // Pula os primeiros 5 eventos
+}, function(handleEvent) {
+    console.log('Eventos lanpião.dev, mariabonita.com.br, app:mariabonita.com.br', handleEvent);
+});
+
+
+onpostt.list({
+    mode: 'post', // Filtra por tipo de evento
+    query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    limit: 10, // Limita o número de eventos
+    offset: 0 // Pula os primeiros 5 eventos
+}, function(handleEvent) {
+    console.log('Eventos jackson.dev2:', handleEvent);
+});
+
+onpostt.list({
+    pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+    mode: 'post', // Filtra por tipo de evento
+    query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    limit: 10, // Limita o número de eventos
+    offset: 0 // Pula os primeiros 5 eventos
+}, function(handleEvent) {
+    console.log('Eventos personalizados author:', handleEvent);
+});
+
+
+onpostt.list({
+    pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+    mode: 'post', // Filtra por tipo de evento
+    id:"91707575e4b2b325a67b03a57a8bf1218c7b7ac7399ac5705af5c21dca8de18a",
+    query: [["username", "lanpião.dev"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    limit: 10, // Limita o número de eventos
+    offset: 0 // Pula os primeiros 5 eventos
+}, function(handleEvent) {
+    console.log('Eventos getFile', handleEvent);
+});
+
+
+onpostt.list({
+    pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+    // id: "4124e36b3a60e50711419be4c5f2febc565f78b2215ce6ac7a510d40572dd905",
+    mode: 'post', // Filtra por tipo de evento
+    query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    limit: 20, // Limita o número de eventos
+    offset: 5 // Pula os primeiros 5 eventos
+}, function(handleEvent) {
+    console.log('Eventos lite 10, offset 5', handleEvent);
+});
+
+
+onpostt.list({
+    pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+    // id: "4124e36b3a60e50711419be4c5f2febc565f78b2215ce6ac7a510d40572dd905",
+    mode: 'follow', // Filtra por tipo de evento
+    // query: [["username", "lanpião.dev2"], ["site", "mariabonita.com.br"]], // Filtra por múltiplas chaves no campo 'query'
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    
+}, function(handleEvent) {
+    console.log('Follows', handleEvent);
+});
+
+onpostt.list({
+    pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+    // id: "4124e36b3a60e50711419be4c5f2febc565f78b2215ce6ac7a510d40572dd905",
+    mode: 'like', // Filtra por tipo de evento
+    query: [
+        ["block", "6349eeab946cd1248674ef578dcbf585c2135f89c885106d1f72919fad70f2ac"]
+    ],
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    
+}, function(handleEvent) {
+    console.log('Likes block: 6349eeab946cd1248674ef578dcbf585c2135f89c885106d1f72919fad70f2ac', handleEvent);
+});
+
+
+onpostt.list({
+    pubkey: '03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523',
+    // id: "4124e36b3a60e50711419be4c5f2febc565f78b2215ce6ac7a510d40572dd905",
+    mode: 'comment', // Filtra por tipo de evento
+    query: [
+        ["block", "6349eeab946cd1248674ef578dcbf585c2135f89c885106d1f72919fad70f2ac"]
+    ],
+    app: "mariabonita.com.br", // Filtra pelo nome do app
+    
+}, function(handleEvent) {
+    console.log('Commment block: 6349eeab946cd1248674ef578dcbf585c2135f89c885106d1f72919fad70f2ac', handleEvent);
+});
+
+
+var mypubkey = window.location.href.split('pubkey=')[1];
+console.log('mypubkey:', mypubkey);
+
+
+
+// function elifelete(){
+//     var conversa = [];
+//     onpostt.sub({
+//         privatekey: '0ad8c0fafc6c742329efc3c240b4ba4f0cfc440c12958c0ff7efdf38fc9625de',
+//         mode: 'message', // Filtra por tipo de evento
+//         pubkey: '0248f402a6b74b3b4730203d9fe8b8e7307d545ae92c7efd3c65cd6451a940bcc0',
+//         query:[
+//             ["from", '0248f402a6b74b3b4730203d9fe8b8e7307d545ae92c7efd3c65cd6451a940bcc0'],
+//             ["to", "03dca175856ff79a1eb5d3b368b6840af29c38c36bf3291d07573ddcdf59110523"]
+//         ],
+//         app: "mariabonita.com.br", // Filtra pelo nome do app
+        
+//     }, function(handleEvent) {
+//         console.log('Chat Elifelete e buiu', handleEvent);
+//     });
+
+   
+// }
+// elifelete()
+
+
+function elifeleteand2(){
+    var conversa = [];
+    onpostt.sub({
+        privatekey: '0ad8c0fafc6c742329efc3c240b4ba4f0cfc440c12958c0ff7efdf38fc9625de',
+        mode: 'message', // Filtra por tipo de evento
+        pubkey: '0248f402a6b74b3b4730203d9fe8b8e7307d545ae92c7efd3c65cd6451a940bcc0',
+        query:[
+            ["from", '0248f402a6b74b3b4730203d9fe8b8e7307d545ae92c7efd3c65cd6451a940bcc0'],
+            ["to", "0387d82042d93447008dfe2af762068a1e53ff394a5bf8f68a045fa642b99ea5d1"]
+        ],
+        app: "mariabonita.com.br", // Filtra pelo nome do app
+        
+    }, function(handleEvent) {
+        console.log('Chat Elifelete e usuario3', handleEvent);
+    });
+
+   
+}
+elifeleteand2()
+
+
+
+
+
+
+</script>
+</body>
+</html>
