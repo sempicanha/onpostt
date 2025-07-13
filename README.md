@@ -1,7 +1,15 @@
 # Documentação do onpostt
-# 📌 Protocolo Descentralizado por Relays Blocos sobre Blocos
+# 📌 Protocolo Descentralizado por Relays/Servers Blocos sobre Blocos
 
-Nosso protocolo é uma solução inovadora publicar e compartilhar blocos entre servers e relays onpostt - com foco em contruções de websites, chats, rede sociais no front-end, porém utilizando uma abordagem baseada em **Transmissão por Relays / Servers** e **Basic Blockchain** para redes sociais e outras aplicações. Os dados são armazenados em **blocos descentralizados**, assinados e criptografados com a chave privada do usuário.
+## Sobre o Protocolo
+
+Nosso protocolo é uma solução descentralizada e inovadora para publicação e compartilhamento de blocos entre **servers** e **relays**, com foco em aplicações de **rede social**, **chats**, e **websites no front-end**.
+
+Inspirado em conceitos como o **Nostr**, este protocolo foi desenvolvido especificamente para redes sociais, utilizando uma arquitetura baseada em **transmissão via relays/servers** e uma estrutura leve de **blockchain básica**.
+
+Todos os dados são armazenados em blocos descentralizados, **assinados digitalmente** e, quando necessário, **criptografados com a chave privada do usuário**, garantindo autenticidade, privacidade e segurança.
+
+
 
 ---
 
@@ -82,6 +90,32 @@ Para utilizar o protocolo, inclua a seguinte biblioteca no seu projeto:
 - `createFollowing(privateKey, app)`: Cria um bloco de seguidores
 
 ## Exemplo de Uso
+
+
+# 📡 Rodando seu Próprio Relay Server
+
+Você pode hospedar seu próprio relay server para se conectar ao protocolo e servir blocos de forma descentralizada. Essa é uma ótima opção para desenvolvedores que desejam ter controle sobre a infraestrutura, aplicar limites personalizados e manter seus próprios dados.
+```bash
+    git clone https://github.com/sempicanha/onpostt
+    cd onpostt
+```
+## 🔧 Configuração do Servidor
+    Edite o arquivo `.env.example` com os parâmetros desejados e renomeie para `.env`.  
+    Esse arquivo define todas as configurações do servidor, como porta, limites de conexão e dados do banco.  
+    Personalize conforme a sua necessidade antes de iniciar o servidor.
+## 🔧 DataBase Postgree Configurações  
+    -- Importa o arquivo onpost.sql localizado em ./database/onpost.sql
+    -- O banco de dados já está totalmente configurado com índices e parâmetros otimizados,
+    -- garantindo desempenho e funcionamento ideais.
+    
+## 🚀 Iniciando o servidor
+
+O servidor é iniciado com:
+
+```bash
+npm start
+```
+
 
 ### 1. Conectar-se a um Relay
 Caso o Relay não não tenha websocket ativado você pode comentar o socket se voce é um ADM do servidor configure o .env de acordo com suas exigencias:
